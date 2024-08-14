@@ -1,0 +1,15 @@
+<%-include("partials/header")%>
+<body>
+    <%for(let blog of blogs_list){%>
+        <div class="blogs">
+            <div class="top">
+                <h1 class="topic"> <%=blog.title%> </h1>
+                <div class="author"> by <%=blog.author%>  </div> 
+                <div class="e_date"> <%=blog.date%>  </div> 
+            </div>
+            <hr>
+            <p class="b_body"> <%=blog.body%></p>
+        </div> 
+        <br><br>
+    <%}%>
+</body>
