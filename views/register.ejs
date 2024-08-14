@@ -1,0 +1,90 @@
+<%- include("partials/header") %>
+<body style="background-color: rgb(238, 233, 233)">
+    <div class="access">
+        <div class="container">
+        <div class="logo_container">
+            <img src="/images/icon.png" alt="" class="logo">
+        </div>
+        <form action="/register" method="post">
+            <input type="text" id="username" class="input_box"name="username" placeholder="Username" value=<%=user%>>
+            <div class="reason" id="r_username" ><%=check_u%></div>
+            <input type="password" id="password" class="input_box"name="password" placeholder="Password" value=<%=pass%>>
+            <div class="reason" id="r_password"></div>
+            <input type="password" id="c_password"class="input_box" name="c_password" placeholder="Confirm Password" value=<%=pass%>>
+            <div class="reason" id="r_c_password"></div>
+            <input type="text" id="email_id" class="input_box" name="email_id" placeholder="E-mail address" value=<%=email%>>
+            <div class="reason" id="r_email_id"><%=check_e%></div>
+            <div class="submit-container">
+            <input type="submit" class="submit" value="Submit">
+        </div>
+            <div class="acc">Have an account?<a href="/sign_in" > Sign in</a></div>
+        </form>
+    </div>
+    </div>
+    <script>
+        var ch1 = '<%= ch1 %>',ch2='<%=ch2%>',ch3='<%=ch3%>',ch4='<%=ch4%>';
+        console.log(typeof(ch1));
+        var usern=document.getElementById("username");
+        var passw=document.getElementById("password");
+        var c_passw=document.getElementById("c_password");
+        var em_id=document.getElementById("email_id");
+        usern.addEventListener('input',()=>{
+            var user=usern.value;
+            const lengthValid = user.length >= 3 && user.length <= 20;
+            const reg=  /^[a-zA-Z0-9_-]+$/;
+            const validChars = reg.test('h');
+            if(lengthValid && validChars){
+                document.getElementById("r_username").textContent="";
+                ch1='true';
+            }
+            else{
+                document.getElementById("r_username").textContent="Username must be of 3-20 charcaters and contain only letters,digits,underscores and hiphens";
+                ch1='false';
+            }
+        });
+        passw.addEventListener('input',()=>{
+            var pass=passw.value;
+            if(pass.length>=8 && /[A-Z]/.test(pass)==true && /[a-z]/.test(pass)==true && /\d/.test(pass)==true && /[!@#$%^&*(),.?":{}|<>]/.test(pass)==true){
+                document.getElementById("r_password").textContent="";
+                ch2='true';
+            }
+            else{
+                document.getElementById("r_password").textContent="Password must be of 8 characters or more , needs atleast one lowercase letter,one uppercase letter,one digit,one special character .";
+                ch2='false';
+            }
+        });
+        c_passw.addEventListener('input',()=>{
+            var c_pass=c_passw.value;
+            if(passw.value==c_pass){
+                document.getElementById("r_c_password").textContent="";
+                ch3='true';
+            }
+            else{
+                document.getElementById("r_c_password").textContent="Password doesn't match";
+                ch3='false';
+            }
+        });
+        em_id.addEventListener('input',()=>{
+            var e_id=em_id.value;
+            if(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e_id)){
+                document.getElementById("r_email_id").textContent="";
+                ch4='true';
+            }
+            else{
+                document.getElementById("r_email_id").textContent="Invalid email-address";
+                ch4='false';
+            }
+        });
+        function sub(){
+            console.log(ch1+" "+ch2+" "+ch3+" "+ch4);
+            if(ch1=='true' && ch2=='true' && ch3=='true' && ch4=='true'){
+                document.getElementsByClassName('submit')[0].disabled = false;
+            }
+            else{
+                document.getElementsByClassName('submit')[0].disabled = true;
+            }
+            setTimeout(sub,500);
+        }
+        sub();
+    </script>
+</body>

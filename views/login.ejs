@@ -1,0 +1,34 @@
+<%- include("partials/header") %>
+<body style="background-color: rgb(238, 233, 233)">
+    <div class="access">
+        <div class="container">
+        <div class="logo_container">
+        <img src="/images/icon.png" alt="" class="logo">
+    </div>
+        <form action="/login" method="post">
+            <input type="text" id="username" class="input_box" name="usernameOrEmail" placeholder="Username" value=<%=user%>>
+            <div class="reason" ></div>
+            <input type="password" id="password" class="input_box" name="password" placeholder="Password" value="<%=pass%>">
+            <div class="reason" id="r_password"><%=checker%></div>
+            <div class="submit-container">
+            <input type="submit" class="submit" value="Submit">
+            </div>
+            <div class="acc">Don't have an account?<a href="/sign_up" > Sign up</a></div>
+        </form>
+    </div>
+    </div>
+    <script>
+        function sub(){
+            var username=document.getElementById("username").value;
+            var password=document.getElementById("password").value;
+            if(username.length>0 && password.length>0){
+                document.getElementsByClassName('submit')[0].disabled = false;
+            }
+            else{
+                document.getElementsByClassName('submit')[0].disabled = true;
+            }
+            setTimeout(sub,500);
+        }
+        sub();
+    </script>
+</body>
